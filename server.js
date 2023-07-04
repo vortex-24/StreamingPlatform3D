@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 // const mongoose = require("mongoose");
-require("./database/database").connect();
+// require("./database/database").connect();
 const bodyParser = require("body-parser");
 // const fileUpload = require("express-fileupload");
 const cors =require('cors')
