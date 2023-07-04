@@ -7,20 +7,20 @@ const bodyParser = require("body-parser");
 const cors =require('cors')
 const path = require('path')
 const busboy = require('connect-busboy')
-// const socketIO = require("socket.io");
+const socketIO = require("socket.io");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
-// const { setupSocket } = require('./socketLogic');
+const { setupSocket } = require('./socketLogic');
 // const io = socketIO(server);
-// const io = require("socket.io")(server, {
-//     transports: ['websocket', 'polling'],
-//     secure: true,
-//     cors: {
-//         origin: "*",
-//         methods: ["GET", "POST"],
-//     },
-// });
+const io = require("socket.io")(server, {
+    transports: ['websocket', 'polling'],
+    secure: true,
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+    },
+});
 app.use(cors())
 app.use(express.json());
 
@@ -34,8 +34,9 @@ const router = require("./routes/router.js");
 // app.use(fileUpload());
 app.use("/uploads",express.static('uploads'))
 app.use("/", router);
+
 // Cors
-// setupSocket(io);
+setupSocket(io);
 app.use((req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin","*");
   res.setHeader("Access-Control-Allow-Headers" ,"Origin ,X-requested-With , Content , Accept , Content-type,Authorization")
@@ -44,6 +45,8 @@ app.use((req,res,next)=>{
 
 })
 
-server.listen(4300, () => {
+const port=process.env.PORT || 4300
+
+server.listen(port, () => {
   console.log(`Server running on port 4300...!`);
 });

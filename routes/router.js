@@ -4,11 +4,9 @@ const Middleware = require("../Api/Middleware");
 
 const router = express.Router();
 
+const { authenticationToken } = require("../Api/AgoraServer");
 
-
-
-
-
+router.post("/api/authentication/token", authenticationToken);
 
 
 

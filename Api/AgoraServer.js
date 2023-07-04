@@ -2,59 +2,14 @@ const https = require('https');
 const { default: axios, Axios } = require("axios");
 const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
 
-require("aws-sdk/lib/maintenance_mode_message").suppress = true;
-
 
 const appID = process.env.APP_ID;
-
-
-
-// exports.agoraServer = (req, res) => {
-//     console.log("..........///////////......");
-// }
-
-
-// FOR AUTHORIZATION FIELD
-// const keyID = process.env.KEY_ID;
-// const secretID = process.env.SECRET_ID;
-
-// const plainCredential = keyID + ":" + secretID;
-
-// const encodedCredential = Buffer.from(plainCredential).toString('base64');
-
-// const authorizationField = "Basic " + encodedCredential;
-
-// const options = {
-//     hostname: 'api.agora.io',
-//     port: 443,
-//     path: '/dev/v1/projects',
-//     method: 'GET',
-//     headers: {
-//         'Authorization': authorizationField,
-//         'Content-Type': 'application/json'
-//     }
-// }
-
-// const req = https.request(options, res => {
-//     // console.log(res);
-//     res.on('data', response => {
-//         const jsonData = JSON.parse(response.toString());
-//         // console.log("The data from get request", jsonData);
-//         // console.log("The data from get request", jsonData.projects[0].vendor_key);
-//     });
-// });
-
-// req.on('error', (error) => {
-//     console.log(error);
-// });
-
-// req.end();
-
 
 exports.authenticationToken = async (req, res) => {
     try {
         const channelName = req.body.channel;
-        console.log('channel name ----->>>>', channelName);
+
+        console.log('here today');
 
         const appCertificate = process.env.APP_CERTIFICATE;
         const uid = req.body.userID;
@@ -75,8 +30,7 @@ exports.authenticationToken = async (req, res) => {
             generatedToken
         });
     } catch (err) {
+        console.log('here in error');
         console.log(err);
-        sendErrorResponse(res, err);
-
     }
 }
